@@ -30,11 +30,16 @@
             <groupId>com.javarush</groupId>
             <artifactId>desktop-game-engine</artifactId>
             <version>1.0</version>
+            <!-- Это если захотим явно прописать путь к файлу не складывая его в локальный репозиторий
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/desktop-game-engine.jar</systemPath>
+            -->
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
             <version>5.8.2</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
@@ -66,6 +71,7 @@
                 </configuration>
             </plugin>
 
+            <!-- Важно! Единоразово, перед сборкой проекта через mvn install сначала запустить mvn validate, чтобы зависимость добавилась в локальный репозиторий-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-install-plugin</artifactId>
@@ -73,7 +79,7 @@
                 <executions>
                     <execution>
                         <id>install-lib-dependencies</id>
-                        <phase>initialize</phase>
+                        <phase>validate</phase>
                         <goals>
                             <goal>install-file</goal>
                         </goals>
